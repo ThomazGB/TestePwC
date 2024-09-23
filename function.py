@@ -10,22 +10,20 @@ def separar_casos_complicados(endereco):
     partes_endereco = endereco.split()
     numero = ""
     partes_rua = []
-
-    
+   
     for i, parte in enumerate(partes_endereco):
         if parte.isdigit():
-            # Assim que encontrar um dígito, adicione esse dígito e todas as partes seguintes ao número
-            numero += ' '.join(partes_endereco[i:])  # Junta todas as partes após o número
-            break  # Encerra o loop, já que todos os itens restantes foram adicionados ao número
+            numero += " ".join(partes_endereco[i:])
+            break
         else:
-            partes_rua.append(parte)  # Adiciona à rua
+            partes_rua.append(parte)
 
-    rua = ' '.join(partes_rua).strip()
+    rua = " ".join(partes_rua).strip()
     return [rua, numero.strip()]
 
-# Função para casos internacionais
+# Função para casos complexos
 def separar_casos_complexos(endereco):
-    partes_endereco = endereco.replace(',', '').split()
+    partes_endereco = endereco.replace(",", "").split()
     numero = ""
     partes_rua = []
 
@@ -33,13 +31,11 @@ def separar_casos_complexos(endereco):
     while i < len(partes_endereco):
         parte = partes_endereco[i]
 
-        # Verifica se a parte é "No" ou "NO"
         if parte.upper() == "NO":
-            # Adiciona todas as partes após o "No" ao número
             numero += parte + " "
-            numero += ' '.join(partes_endereco[i + 1:])  # Adiciona o resto da string ao número
-            break  # Encerra o loop após processar o "No"
-        # Se for um número isolado, considera como número do endereço
+            numero += " ".join(partes_endereco[i + 1:])
+            break
+        
         if parte.isdigit() and "No" not in partes_endereco:
             numero += parte + " "
         else:
@@ -47,7 +43,7 @@ def separar_casos_complexos(endereco):
 
         i += 1
 
-    rua = ' '.join(partes_rua).strip()
+    rua = " ".join(partes_rua).strip()
     return [rua, numero.strip()]
 
 #Exportar para XLSX
